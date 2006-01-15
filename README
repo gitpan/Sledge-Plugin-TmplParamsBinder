@@ -1,0 +1,42 @@
+NAME
+    Sledge::Plugin::TmplParamsBinder - bind dispatcher's lexical variables
+    to template
+
+SYNOPSIS
+        package Your::Pages;
+        use Sledge::Plugin::TmplParamsBinder;
+        sub dispatch_foo {
+            my $self = shift;
+            my $scalar    = 'blah blah';
+            my $array_ref = [qw(1 2 3)];
+            my $hash_ref  = {a => 'b'};
+            my @array     = qw(a b c);
+            my %hash      = (aa => 11, bb => 12);
+            $self->tmpl->bind;
+        }
+
+        # This code is equivalent to:
+        sub dispatch_foo {
+            my $self = shift;
+            $self->tmpl->param(
+                scalar    => 'blah blah',
+                array_ref => [qw(1 2 3)],
+                hash_ref  => {a => 'b'},
+                array     => [qw(a b c)],
+                hash      => {aa => 11, bb => 12},
+            );
+        }
+
+DESCRIPTION
+    Sledge::Plugin::TmplParamsBinder binds lexical variables to template
+    parameter.
+
+AUTHOR
+    MATSUNO Tokuhiro <tokuhiro at mobilefactory.jp>
+
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+SEE ALSO
+    PadWalker, Catalyst::Controller::BindLex
+
